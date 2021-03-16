@@ -1,0 +1,6 @@
+from django.contrib import admin
+
+# Register your models here.
+from .models import Todo, StickyNote
+admin.site.register(Todo)
+admin.site.register(StickyNote)

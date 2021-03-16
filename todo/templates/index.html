@@ -1,0 +1,18 @@
+{% include 'partials/header.html' %}
+<div>
+    {% for note in notes %}
+        <h3>note.note_name</h3>
+        <ul>
+            <a href="/todos/add">Add Todo</a>
+            {% for todo in note.todos_set.all %}
+            <li><a href="/todos/details/{{todo.id}}">{{todo.title}}</a>: {{todo.text}}</li>
+            <form action="/todos/delete/{{todo.id}}/" 
+                style="display: inline;"
+                method="post">{% csrf_token %}
+                <input type="submit" value="Delete"/>
+            </form>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>
+{% include 'partials/footer.html'%}
