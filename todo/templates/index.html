@@ -1,18 +1,21 @@
 {% include 'partials/header.html' %}
-<div>
+<div class="content">
     {% for note in notes %}
-        <h3>note.note_name</h3>
+    <div class="note">
+        <div class="note-head">
+            <h3>{{note.note_name}}</h3>
+            <a href="{% url 'add' note.id %}" role="button" class="btn btn-outline-success">Add Todo</a>
+            <a href="{% url 'removeNote' note.id %}" role="button" class="btn btn-outline-danger">Delete</a>
+        </div>
         <ul>
-            <a href="/todos/add">Add Todo</a>
-            {% for todo in note.todos_set.all %}
-            <li><a href="/todos/details/{{todo.id}}">{{todo.title}}</a>: {{todo.text}}</li>
-            <form action="/todos/delete/{{todo.id}}/" 
-                style="display: inline;"
-                method="post">{% csrf_token %}
-                <input type="submit" value="Delete"/>
-            </form>
+            {% for todo in note.todo_set.all %}
+            <div class="todo">
+                <li><a href="/todos/details/{{todo.id}}">{{todo.title}}</a>: {{todo.text}}</li>
+                <a href="{% url 'delete' todo.id %}" role="button" class="btn btn-outline-danger">Delete</a>
+            </div>
             {% endfor %}
         </ul>
+    </div>
     {% endfor %}
 </div>
 {% include 'partials/footer.html'%}
